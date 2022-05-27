@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml";>
+<head>
+  <title></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+
+</head>
+<body>
+<h1>Cursos Alternativos</h1>
+
+
+<div class="container">
+  <h3 class="mt-5">Alumnos</h3>
+  <hr>
+  <div class="row">
+    <div class="col-12 col-md-12"> 
+      <!-- Contenido -->
+      
+      
+      
+<!-- Content Section --> 
+<!-- crud jquery-->
+<div class="da">
+  <!-- div class="row">
+    <div class="col-md-12">
+      <div class="pull-right">
+        <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal">Agregar Calificacion</button>
+      </div>
+    </div>
+  </div-->
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="records_content"></div>
+    </div>
+  </div>
+</div>
+<!-- /Content Section --> 
+
+	<div class="container mt-5">
+		<table id="tblAlumnos" class="table-striped border-success"   style="width:100%">
+	        <thead>
+	            <tr>
+	                <th data-field="idTUsuarios">Id</th>
+	                <th data-field="nombre">Nombre</th>
+	                <th data-field="apPaterno">Ap. Paterno</th>
+	                <th data-field="apMaterno">Ap. Materno</th>
+	                <th >Acciones</th>
+	            </tr>
+	        </thead>
+	    </table>
+	</div>
+
+<div class="modal fade " id="verCalificaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+   
+      <div class="modal-header">
+        <h5  class="modal-title">Calificaciones (Promedio <span id ="idPromedio">0.0</span>) <button id="newCal" class='btn btn-primary newCal' onclick="showAdd()">Agregar</button></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      
+      
+      
+		
+			<table id="tblCalificaciones" class="table-striped border-success"   >
+		        <thead>
+		            <tr>
+		                <th data-field="idCalificacion">Id</th>
+		                <th data-field="materia">Materia</th>
+		                <th data-field="calificacion">Calificacion</th>
+		                <th data-field="actualizado">Actualizado</th>
+		                <th >Acciones</th>
+		            </tr>
+		        </thead>
+		    </table>
+		
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="tbladdCalificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+   
+      <div class="modal-header">
+        <h5 class="modal-title">Nueva Calificacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      
+      <input  type="hidden" id="addidCalificacion" value=""  class="form-control"/>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="idAlumno">Id Alumno</label>
+          <input  type="text" readonly id="addidAlumno" value=""  class="form-control"/>
+        </div>
+	     <div class="form-group ">
+	      <label for="inputState">Materia</label>
+	      <select id="addidMateria" class="form-control">
+	        
+	      </select>
+	    </div>
+        <div class="form-group">
+          <label for="calificacion">Calificacion</label>
+          <input type="number" id="addcalificacion" class="form-control" value=""/>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="saveCalificacion()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="tblNewCalificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+   
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Calificacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      
+      <input  type="hidden" id="idCalificacion" value=""  class="form-control"/>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="idAlumno">Id Alumno</label>
+          <input  type="text" id="idAlumno" value=""  class="form-control"/>
+        </div>
+	     <div class="form-group ">
+	      <label for="inputState">Materia</label>
+	      <select id="idMateria" class="form-control">
+	        
+	      </select>
+	    </div>
+        <div class="form-group">
+          <label for="calificacion">Calificacion</label>
+          <input type="number" id="calificacion" class="form-control" value=""/>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="updateCalificacion()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- Fin Contenido --> 
+    </div>
+  </div>
+  <!-- Fin row --> 
+  
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+  	console.info($('#tblAlumnos'));
+    $.ajax({
+        url: "http://localhost:8080/api/alumnos"
+    }).then(function(mydata) {
+
+        $('#tblAlumnos').bootstrapTable({
+            data: mydata,
+            total: mydata.length,
+            columns: [ {},{},{},  {},
+                {
+                  field: 'operate',
+                  title: 'Acciones',
+                  align: 'center',
+                  valign: 'middle',
+                  clickToSelect: false,
+                  formatter : function(value,row,index) {
+                    //return '<input name="elementname"  value="'+value+'"/>';
+                    return '<button class=\'btn btn-primary \' pageName="'+row.idTUsuarios+'"   >Calificaciones</button> ';
+                  }
+                }
+              ]
+          });
+        
+        $(".btn").click(function(){
+            var pageDetails = $(this).attr('pageDetails');
+            var pageName = $(this).attr('pageName');
+ 
+            if (pageName !== undefined){
+                $('#addidAlumno').val(pageName);
+                console.info('pageName: '+ pageName);
+                $.ajax({
+                    url: "http://localhost:8080/api/calificaciones/" + pageName
+                }).then(function(myCals) {
+            		
+            		var myDataFinal = [];
+            		$('#idPromedio').text(myCals.promedio);
+            		console.info(myCals.promedio);
+            		myCals.materiasCalificaciones.forEach(function(objeto) {
+            			myDataFinal.push({
+            				idCalificacion: objeto.idCalificacion,
+            				materia : objeto.materia.nombre,
+            				calificacion: objeto.calificacion,
+            				actualizado: objeto.registro,
+            				idAlumno : objeto.alumno.idTUsuarios
+            			});
+            		});
+            		$('#tblCalificaciones').bootstrapTable('destroy');
+                    $('#tblCalificaciones').bootstrapTable({
+                        data: myDataFinal,
+                        total: myDataFinal.length,
+                        columns: [ {},{},{},  {},
+                            {
+                              field: 'operate',
+                              title: 'Acciones',
+                              align: 'center',
+                              valign: 'middle',
+                              clickToSelect: false,
+                              formatter : function(value,row,index) {
+                                //return '<input name="elementname"  value="'+value+'"/>';
+                                return '<button class=\'btn btn-primary editar \' idCalificacion="'+row.idCalificacion+'" idAlumno="'+row.idAlumno+'"  >Editar</button> ' +
+                                '<button class=\'btn btn-primary eliminar\' idCalificacion="'+row.idCalificacion+'"   >Eliminar</button>';
+                              }
+                            }
+                          ]
+                      });
+                    $(".editar").click(function(){
+                    	var idCalificacion = $(this).attr('idCalificacion');
+                    	var idAlumno = $(this).attr('idAlumno');
+                    	console.info(idCalificacion);
+                        $.ajax({
+                            url: "http://localhost:8080/api/materias"
+                        }).then(function(mydata) {
+                    		console.info(mydata);
+                    		$("#idMateria").empty();
+                    		for (var i = 0; i < mydata.length; i++) {
+                                $("#idMateria").append("<option value='" + mydata[i].idMateria + "'>" + mydata[i].nombre + "</option>");
+                            } 
+                        });
+                        $('#idAlumno').val(idAlumno);
+                        $('#idCalificacion').val(idCalificacion);
+                        $('#idAlumno').prop('readonly', true);
+                    	$("#tblNewCalificacion").modal("show");
+                    });
+                    $(".eliminar").click(function(){
+                    	var idCalificacion = $(this).attr('idCalificacion');
+                    	var idAlumno = $(this).attr('idAlumno');
+                    	console.info(idCalificacion);
+                        $.ajax({
+                            url: "http://localhost:8080/api/calificaciones/elimina/" + idCalificacion,
+                            type: 'DELETE'
+                        }).then(function(mydata) {
+                	    	console.info(mydata);
+                	    	alert(mydata.msg);
+                	    	$("#tblNewCalificacion").modal("hide");
+                	    	$("#tbladdCalificacion").modal("hide");
+                	    	$("#verCalificaciones").modal("hide");
+                        });
+                    });
+                });
+                
+            	$("#verCalificaciones").modal("show");
+            }
+
+        });
+    });
+
+    updateCalificacion = function (){
+    	console.info($('#calificacion').val());
+    	$.ajax({
+    	    url: 'http://localhost:8080/api/calificaciones/actualiza/' + $('#idCalificacion').val(),
+    	    type: 'PUT',
+    	    datatype : "application/json",
+    	    contentType: "application/json",
+    	    processData: false,
+    	    data: JSON.stringify({
+    	    			  "idCalificacion": $('#idCalificacion').val(),
+    	    			  "materia": {
+    	    			    "idMateria": $( "#idMateria" ).val(),
+    	    			    "nombre": "matematicas 2",
+    	    			    "activo": 1
+    	    			  },
+    	    			  "alumno": {
+    	    			    "idTUsuarios": 2,
+    	    			    "nombre": "Miguel",
+    	    			    "apPaterno": "Andrade",
+    	    			    "apMaterno": "Hdez",
+    	    			    "activo": 0
+    	    			  },
+    	    			  "calificacion": $('#calificacion').val(),
+    	    			  "registro": "2022-05-27T08:00:41"
+    	    			}),
+    	    success: function(data, status, jqXHR){
+    	    	console.info(data);
+    	    	alert(data.msg);
+    	    	
+    	    	$("#tblNewCalificacion").modal("hide");
+    	    	$("#tbladdCalificacion").modal("hide");
+    	    	$("#verCalificaciones").modal("hide");
+    	    },
+    	    error: function(jqXHR, status, errorThrown){
+    	    	console.error(errorThrown);
+    	    	console.error(jqXHR);
+    	    	console.error(status);
+    	    }
+    	});
+    };
+    showAdd = function (){
+        $.ajax({
+            url: "http://localhost:8080/api/materias"
+        }).then(function(mydata) {
+    		console.info(mydata);
+    		$("#addidMateria").empty();
+    		for (var i = 0; i < mydata.length; i++) {
+                $("#addidMateria").append("<option value='" + mydata[i].idMateria + "'>" + mydata[i].nombre + "</option>");
+            } 
+        });
+    	$("#tbladdCalificacion").modal("show");
+    }
+    saveCalificacion = function (){
+    	console.info($('#calificacion').val());
+    	$.ajax({
+    	    url: 'http://localhost:8080/api/calificaciones/new/',
+    	    type: 'POST',
+    	    datatype : "application/json",
+    	    contentType: "application/json",
+    	    processData: false,
+    	    data: JSON.stringify({
+    	    			  "idCalificacion": $('#addidCalificacion').val(),
+    	    			  "materia": {
+    	    			    "idMateria": $( "#addidMateria" ).val(),
+    	    			    "nombre": "matematicas 2",
+    	    			    "activo": 1
+    	    			  },
+    	    			  "alumno": {
+    	    			    "idTUsuarios": $('#addidAlumno').val(),
+    	    			    "nombre": "Miguel",
+    	    			    "apPaterno": "Andrade",
+    	    			    "apMaterno": "Hdez",
+    	    			    "activo": 0
+    	    			  },
+    	    			  "calificacion": $('#addcalificacion').val(),
+    	    			  "registro": "2022-05-27T08:00:41"
+    	    			}),
+    	    success: function(data, status, jqXHR){
+    	    	console.info(data);
+    	    	alert(data.msg);
+    	    	$("#tblNewCalificacion").modal("hide");
+    	    	$("#tbladdCalificacion").modal("hide");
+    	    	$("#verCalificaciones").modal("hide");
+    	    },
+    	    error: function(jqXHR, status, errorThrown){
+    	    	console.error(errorThrown);
+    	    	console.error(jqXHR);
+    	    	console.error(status);
+    	    }
+    	});
+    };
+    
+    });
+  
+
+    
+    // Specify the JSON data to be displayed
+
+  </script>
+</body>
+</html>
