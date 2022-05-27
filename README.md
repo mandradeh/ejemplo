@@ -1,5 +1,6 @@
 # ejemplo
 Hola
+
 1.- Ejecutar con mvnw spring-boot:run
 
 2.- Visitar http://localhost:8080/
@@ -13,6 +14,7 @@ Hola
 
 Saludos. Muchas gracias. 
 
+--===================================
 Se modificó un poco el script de BD
 
 create table t_alumnos (
