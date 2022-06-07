@@ -175,7 +175,7 @@
     $(document).ready(function () {
   	console.info($('#tblAlumnos'));
     $.ajax({
-        url: "http://localhost:8080/api/alumnos"
+        url: "https://mandradeh7.herokuapp.com/api/alumnos"
     }).then(function(mydata) {
 
         $('#tblAlumnos').bootstrapTable({
@@ -204,7 +204,7 @@
                 $('#addidAlumno').val(pageName);
                 console.info('pageName: '+ pageName);
                 $.ajax({
-                    url: "http://localhost:8080/api/calificaciones/" + pageName
+                    url: "https://mandradeh7.herokuapp.com/api/calificaciones/" + pageName
                 }).then(function(myCals) {
             		
             		var myDataFinal = [];
@@ -243,7 +243,7 @@
                     	var idAlumno = $(this).attr('idAlumno');
                     	console.info(idCalificacion);
                         $.ajax({
-                            url: "http://localhost:8080/api/materias"
+                            url: "https://mandradeh7.herokuapp.com/api/materias"
                         }).then(function(mydata) {
                     		console.info(mydata);
                     		$("#idMateria").empty();
@@ -261,7 +261,7 @@
                     	var idAlumno = $(this).attr('idAlumno');
                     	console.info(idCalificacion);
                         $.ajax({
-                            url: "http://localhost:8080/api/calificaciones/elimina/" + idCalificacion,
+                            url: "https://mandradeh7.herokuapp.com/api/calificaciones/elimina/" + idCalificacion,
                             type: 'DELETE'
                         }).then(function(mydata) {
                 	    	console.info(mydata);
@@ -282,7 +282,7 @@
     updateCalificacion = function (){
     	console.info($('#calificacion').val());
     	$.ajax({
-    	    url: 'http://localhost:8080/api/calificaciones/actualiza/' + $('#idCalificacion').val(),
+    	    url: 'https://mandradeh7.herokuapp.com/api/calificaciones/actualiza/' + $('#idCalificacion').val(),
     	    type: 'PUT',
     	    datatype : "application/json",
     	    contentType: "application/json",
@@ -321,7 +321,7 @@
     };
     showAdd = function (){
         $.ajax({
-            url: "http://localhost:8080/api/materias"
+            url: "https://mandradeh7.herokuapp.com/api/materias"
         }).then(function(mydata) {
     		console.info(mydata);
     		$("#addidMateria").empty();
@@ -334,7 +334,7 @@
     saveCalificacion = function (){
     	console.info($('#calificacion').val());
     	$.ajax({
-    	    url: 'http://localhost:8080/api/calificaciones/new/',
+    	    url: 'https://mandradeh7.herokuapp.com/api/calificaciones/new/',
     	    type: 'POST',
     	    datatype : "application/json",
     	    contentType: "application/json",
