@@ -1,1 +1,1 @@
-web: gunicorn wsgi:app
+web: java -Dserver.port=$PORT -jar build/libs/*.jar
